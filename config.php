@@ -31,7 +31,7 @@ $conf['clogin'] = array(
 	'controlador' => 'login.php',
 	'descripcion' => 'Inicio de sesion',
 	'seguridad' => false,
-	'capa' => LAYOUT_AJAX);
+	'capa' => LAYOUT_JSON);
 	
 $conf['bienvenida'] = array(
 	'controlador' => 'usuarios.php',
@@ -61,7 +61,7 @@ $conf['cusuarios'] = array(
 	'controlador' => 'usuarios.php',
 	'descripcion' => 'Controlador de usuarios',
 	'seguridad' => true,
-	'capa' => LAYOUT_AJAX);
+	'capa' => LAYOUT_JSON);
 	
 /*Datos de usuario desde el panel*/
 $conf['usuarioDatosPersonales'] = array(
@@ -108,9 +108,15 @@ $conf['listaClientes'] = array(
 $conf['cclientes'] = array(
 	'controlador' => 'clientes.php',
 	'descripcion' => 'Controlador de clientes',
+	'capa' => LAYOUT_JSON);
+	
+$conf['listaSitios'] = array(
+	'controlador' => 'clientes.php',
+	'vista' => 'clientes/sitios/lista.tpl',
+	'descripcion' => 'Lista de sitios agregados por el cliente',
 	'capa' => LAYOUT_AJAX);
 
-/*Cateogir a de servicios*/
+/*Categoria de servicios*/
 $conf['categoriaservicios'] = array(
 	'controlador' => 'categoriaservicios.php',
 	'vista' => 'categoriaservicios/panel.tpl',
@@ -128,5 +134,25 @@ $conf['listaCategoriaServicios'] = array(
 $conf['ccategoriaservicios'] = array(
 	'controlador' => 'categoriaservicios.php',
 	'descripcion' => 'Controlador de Categoria de servicios',
+	'capa' => LAYOUT_JSON);
+
+/*Servicios*/
+$conf['servicios'] = array(
+	'controlador' => 'servicios.php',
+	'vista' => 'servicios/panel.tpl',
+	'descripcion' => 'Administración de servicios',
+	'js' => array('servicios.class.js'),
+	'jsTemplate' => array('servicios.js'),
+	'capa' => LAYOUT_DEFECTO);
+	
+$conf['listaServicios'] = array(
+	'controlador' => 'servicios.php',
+	'vista' => 'servicios/lista.tpl',
+	'descripcion' => 'Lista de servicios',
 	'capa' => LAYOUT_AJAX);
+
+$conf['cservicios'] = array(
+	'controlador' => 'servicios.php',
+	'descripcion' => 'Controlador de servicios',
+	'capa' => LAYOUT_JSON);
 ?>

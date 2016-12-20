@@ -63,3 +63,6 @@
 		</form>
 	</div>
 </div>
+
+{include file=$PAGE.rutaModulos|cat:"modulos/clientes/sitios/panel.tpl"}
+{include file=$PAGE.rutaModulos|cat:"modulos/clientes/sitios/winDetalle.tpl"}

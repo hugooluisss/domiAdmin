@@ -1,27 +1,6 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-20 08:43:10
-         compiled from "templates/plantillas/modulos/categoriaservicios/panel.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:84164138758549948471df9-66568928%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
-$_valid = $_smarty_tpl->decodeProperties(array (
-  'file_dependency' => 
-  array (
-    '477349844cbb8dac020814d65b729679c15e0064' => 
-    array (
-      0 => 'templates/plantillas/modulos/categoriaservicios/panel.tpl',
-      1 => 1482244706,
-      2 => 'file',
-    ),
-  ),
-  'nocache_hash' => '84164138758549948471df9-66568928',
-  'function' => 
-  array (
-  ),
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_585499484e7055_07565017',
-  'has_nocache_code' => false,
-),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_585499484e7055_07565017')) {function content_585499484e7055_07565017($_smarty_tpl) {?><div class="row">
+<div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Categoría de servicios</h1>
+		<h1 class="page-header">Servicios</h1>
 	</div>
 </div>
 
@@ -50,9 +29,30 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 				</div>
 				<div class="box-body">
 					<div class="form-group">
+						<label for="selCategoria" class="col-lg-2">Categoría</label>
+						<div class="col-lg-4">
+							<select id="selCategoria" name="selCategoria" class="form-control">
+								{foreach from=$categorias item="row"}
+									<option value="{$row.idCategoria}">{$row.nombre}</option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="box-body">
+					<div class="form-group">
 						<label for="txtDescripcion" class="col-lg-2">Descripción</label>
 						<div class="col-lg-6">
-							<textarea class="form-control" id="txtDescripcion" name="txtDescripcion"></textarea>
+							<textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="3"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="box-body">
+					<div class="form-group">
+						<label for="txtPrecio" class="col-lg-2">Precio</label>
+						<div class="col-lg-2">
+							<input class="form-control text-right" type="number" id="txtPrecio" name="txtPrecio">
+							<span class="help-block">Si es 0 el precio es tomado en base al kilometraje</span>
 						</div>
 					</div>
 				</div>
@@ -64,4 +64,4 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			</div>
 		</form>
 	</div>
-</div><?php }} ?>
+</div>

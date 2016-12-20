@@ -73,12 +73,12 @@ switch($objModulo->getId()){
 				$obj->setPass($_POST['pass']);
 				$obj->setTipo($_POST['tipo']);
 				$obj->setTelefono($_POST['codigo']);
-
-				echo json_encode(array("band" => $obj->guardar()));
+				
+				$smarty->assign("json", array("band" => $obj->guardar()));
 			break;
 			case 'del':
 				$obj = new TUsuario($_POST['usuario']);
-				echo json_encode(array("band" => $obj->eliminar()));
+				$smarty->assign("json", array("band" => $obj->eliminar()));
 			break;
 			case 'saveDatosPersonales':
 				global $sesion;
@@ -87,7 +87,7 @@ switch($objModulo->getId()){
 				$obj->setId($sesion['usuario']);
 				$obj->setNombre($_POST['nombre']);
 				
-				echo json_encode(array("band" => $obj->guardar()));
+				$smarty->assign("json", array("band" => $obj->guardar()));
 			break;
 			case 'savePassword':
 				global $sesion;
@@ -96,15 +96,16 @@ switch($objModulo->getId()){
 				$obj->setId($sesion['usuario']);
 				$obj->setPass($_POST['pass']);
 				
-				echo json_encode(array("band" => $obj->guardar()));
+				$smarty->assign("json", array("band" => $obj->guardar()));
 			break;
 			case 'addArea':
 				$obj = new TUsuario($_POST['usuario']);
-				echo json_encode(array("band" => $obj->addArea($_POST['area'])));
+				
+				$smarty->assign("json", array("band" => $obj->addArea($_POST['area'])));
 			break;
 			case 'delArea':
 				$obj = new TUsuario($_POST['usuario']);
-				echo json_encode(array("band" => $obj->delArea($_POST['area'])));
+				$smarty->assign("json", array("band" => $obj->delArea($_POST['area'])));
 			break;
 		}
 	break;

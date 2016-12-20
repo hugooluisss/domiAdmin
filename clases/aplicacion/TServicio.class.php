@@ -1,19 +1,17 @@
 <?php
 /**
-* TCliente
-* Clientes
+* TServicio
+* Servicios
 * @package aplicacion
 * @autor Hugo Santiago hugooluisss@gmail.com
 **/
 
-class TCliente{
-	private $idCliente;
+class TServicio{
+	private $idServicio;
+	public $categoria;
 	private $nombre;
-	private $sexo;
-	private $nacimiento;
-	private $correo;
-	private $celular;
-	
+	private $descripcion;
+	private $precio;
 	
 	/**
 	* Constructor de la clase
@@ -22,8 +20,9 @@ class TCliente{
 	* @access public
 	* @param int $id identificador del objeto
 	*/
-	public function TCliente($id = ''){
-		$this->setId($id);		
+	public function TServicio($id = ''){
+		$this->categoria = new TCategoriaServicio();
+		$this->setId($id);
 		return true;
 	}
 	
@@ -40,10 +39,17 @@ class TCliente{
 		if ($id == '') return false;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from cliente where idCliente = ".$id);
+		$rs = $db->Execute("select * from servicio where idServicio = ".$id);
 		
-		foreach($rs->fields as $field => $val)
-			$this->$field = $val;
+		foreach($rs->fields as $field => $val){
+			switch($field){
+				case 'idCategoria':
+					$this->categoria = new TCategoriaServicio($val);
+				break;
+				default:
+					$this->$field = $val;
+			}
+		}
 		
 		return true;
 	}
@@ -57,7 +63,7 @@ class TCliente{
 	*/
 	
 	public function getId(){
-		return $this->idCliente;
+		return $this->idServicio;
 	}
 	
 	/**
@@ -87,7 +93,7 @@ class TCliente{
 	}
 	
 	/**
-	* Establece el email
+	* Establece la descripción
 	*
 	* @autor Hugo
 	* @access public
@@ -95,99 +101,47 @@ class TCliente{
 	* @return boolean True si se realizó sin problemas
 	*/
 	
-	public function setCorreo($val = ''){
-		$this->correo = $val;
+	public function setDescripcion($val = ''){
+		$this->descripcion = $val;
 		return true;
 	}
 	
 	/**
-	* Retorna el email
+	* Retorna la descripción
 	*
 	* @autor Hugo
 	* @access public
 	* @return string Texto
 	*/
 	
-	public function getCorreo(){
-		return $this->correo;
+	public function getDescripcion(){
+		return $this->descripcion;
 	}
 	
 	/**
-	* Establece el Sexo
+	* Establece el precio
 	*
 	* @autor Hugo
 	* @access public
-	* @param string $val Valor a asignar
+	* @param float $val Valor a asignar
 	* @return boolean True si se realizó sin problemas
 	*/
 	
-	public function setSexo($val = 'H'){
-		$this->sexo = $val;
+	public function setPrecio($val = 0){
+		$this->precio = $val;
 		return true;
 	}
 	
 	/**
-	* Retorna el Sexo
+	* Retorna el precio
 	*
 	* @autor Hugo
 	* @access public
 	* @return string Texto
 	*/
 	
-	public function getSexo(){
-		return $this->sexo;
-	}
-	
-	/**
-	* Establece la fecha de nacimiento
-	*
-	* @autor Hugo
-	* @access public
-	* @param string $val Valor a asignar
-	* @return boolean True si se realizó sin problemas
-	*/
-	
-	public function setNacimiento($val = ''){
-		$this->nacimiento = $val;
-		return true;
-	}
-	
-	/**
-	* Retorna la fecha de nacimiento
-	*
-	* @autor Hugo
-	* @access public
-	* @return string Texto
-	*/
-	
-	public function getNacimiento(){
-		return $this->nacimiento;
-	}
-	
-	/**
-	* Establece el celular
-	*
-	* @autor Hugo
-	* @access public
-	* @param string $val Valor a asignar
-	* @return boolean True si se realizó sin problemas
-	*/
-	
-	public function setCelular($val = ''){
-		$this->celular = $val;
-		return true;
-	}
-	
-	/**
-	* Retorna el celular
-	*
-	* @autor Hugo
-	* @access public
-	* @return string Texto
-	*/
-	
-	public function getCelular(){
-		return $this->celular;
+	public function getPrecio(){
+		return $this->precio == ''?0:$this->precio;
 	}
 		
 	/**
@@ -202,23 +156,22 @@ class TCliente{
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO cliente(nombre) VALUES('".$this->getNombre()."');");
+			$rs = $db->Execute("INSERT INTO servicio(idCategoria) VALUES('".$this->categoria->getId()."');");
 			if (!$rs) return false;
 				
-			$this->idCliente = $db->Insert_ID();
+			$this->idServicio = $db->Insert_ID();
 		}		
 		
 		if ($this->getId() == '')
 			return false;
 			
-		$rs = $db->Execute("UPDATE cliente
+		$rs = $db->Execute("UPDATE servicio
 			SET
 				nombre = '".$this->getNombre()."',
-				correo = '".$this->getCorreo()."',
-				celular = '".$this->getCelular()."',
-				sexo = '".$this->getSexo()."',
-				nacimiento = '".$this->getNacimiento()."'
-			WHERE idCliente = ".$this->getId());
+				descripcion = '".$this->getDescripcion()."',
+				precio = ".$this->getPrecio().",
+				idCategoria = ".$this->categoria->getId()."
+			WHERE idServicio = ".$this->getId());
 			
 		return $rs?true:false;
 	}
@@ -235,7 +188,7 @@ class TCliente{
 		if ($this->getId() == '') return false;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("update cliente set visible = false where idCliente = ".$this->getId());
+		$rs = $db->Execute("update servicio set visible = false where idServicio = ".$this->getId());
 		
 		return $rs?true:false;
 	}

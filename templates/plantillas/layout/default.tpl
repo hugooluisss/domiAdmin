@@ -28,6 +28,7 @@
 		<link rel="stylesheet" href="{$PAGE.ruta}plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 		<link rel="stylesheet" href="{$PAGE.ruta}plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 		<link rel="stylesheet" href="{$PAGE.ruta}plugins/upload/css/jquery.fileupload.css">
+		
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -67,7 +68,7 @@
 							<ul class="dropdown-menu">
 								<!-- The user image in the menu -->
 								<li class="user-header">
-									<img src="{$PAGE.ruta}img/logoazul.png" alt="User Image"/>
+									<img src="{$PAGE.ruta}img/logoUser.png" alt="User Image"/>
 									<p>
 										{$PAGE.usuario->getNombre()}
 										<small>{$PAGE.usuario->getEmail()}</small>
@@ -109,14 +110,14 @@
 					</li>
 					{/if}
 					{if $PAGE.usuario->getIdTipo() eq 1}
-					<li class="{if in_array($PAGE.modulo, array('clientes', 'categoriaservicios'))}active{/if} treeview">
+					<li class="{if in_array($PAGE.modulo, array('clientes', 'categoriaservicios', 'servicios'))}active{/if} treeview">
 						<a href="#">
 							<span>Catálogos</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
 							<li {if $PAGE.modulo eq 'clientes'}class="active"{/if}><a href="clientes"><i class="fa fa-users"></i> Clientes</a></li>
-							<li {if $PAGE.modulo eq 'categoriaservicios'}class="active"{/if}><a href="categoriaservicios"><i class="fa fa-users"></i> Cateogría de servicios</a></li>
-							<li {if $PAGE.modulo eq 'servicios'}class="active"{/if}><a href="servicios"><i class="fa fa-users"></i> Servicios</a></li>
+							<li {if $PAGE.modulo eq 'categoriaservicios'}class="active"{/if}><a href="categoriaservicios"><i class="fa fa-list"></i> Categoría de servicios</a></li>
+							<li {if $PAGE.modulo eq 'servicios'}class="active"{/if}><a href="servicios"><i class="fa fa-motorcycle" aria-hidden="true"></i> Servicios</a></li>
 						</ul>
 					</li>
 					{/if}

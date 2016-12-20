@@ -1,13 +1,15 @@
-TCategoriaServicio = function(){
+TServicio = function(){
 	var self = this;
 	
-	this.add = function(id,	nombre, descripcion, fn){
+	this.add = function(data, fn){
 		if (fn.before !== undefined) fn.before();
 		
-		$.post('ccategoriaservicios', {
-				"id": id,
-				"nombre": nombre,
-				"descripcion": descripcion,
+		$.post('cservicios', {
+				"id": data.id,
+				"nombre": data.nombre,
+				"descripcion": data.descripcion,
+				"precio": data.precio,
+				"categoria": data.categoria,
 				"action": "add"
 			}, function(data){
 				if (data.band == 'false')
@@ -19,7 +21,7 @@ TCategoriaServicio = function(){
 	};
 	
 	this.del = function(id, fn){
-		$.post('ccategoriaservicios', {
+		$.post('cservicios', {
 			"identificador": id,
 			"action": "del"
 		}, function(data){

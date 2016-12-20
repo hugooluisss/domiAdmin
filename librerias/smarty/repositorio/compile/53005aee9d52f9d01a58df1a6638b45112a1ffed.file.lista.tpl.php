@@ -1,22 +1,22 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-20 08:43:11
-         compiled from "templates/plantillas/modulos/categoriaservicios/lista.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:82292793058549949a37d79-17716886%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty-3.1.11, created on 2016-12-20 09:30:50
+         compiled from "templates/plantillas/modulos/servicios/lista.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:1001152375585949183e21c7-40896942%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    'fa018a20e005583e182feb8d63b23dec4b508c18' => 
+    '53005aee9d52f9d01a58df1a6638b45112a1ffed' => 
     array (
-      0 => 'templates/plantillas/modulos/categoriaservicios/lista.tpl',
-      1 => 1482244706,
+      0 => 'templates/plantillas/modulos/servicios/lista.tpl',
+      1 => 1482247848,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '82292793058549949a37d79-17716886',
+  'nocache_hash' => '1001152375585949183e21c7-40896942',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_58549949aeaf45_19508261',
+  'unifunc' => 'content_5859491841b337_94824293',
   'variables' => 
   array (
     'lista' => 0,
@@ -24,13 +24,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_58549949aeaf45_19508261')) {function content_58549949aeaf45_19508261($_smarty_tpl) {?><div class="box">
+<?php if ($_valid && !is_callable('content_5859491841b337_94824293')) {function content_5859491841b337_94824293($_smarty_tpl) {?><div class="box">
 	<div class="box-body">
 		<table id="tblDatos" class="table table-bordered table-hover">
 			<thead>
 				<tr>
 					<th>#</th>
 					<th>Nombre</th>
+					<th>Precio</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -41,14 +42,16 @@ foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars[
 $_smarty_tpl->tpl_vars["row"]->_loop = true;
 ?>
 					<tr>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['idCategoria'];?>
+						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['idServicio'];?>
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
 </td>
+						<td class="text-right"><?php if ($_smarty_tpl->tpl_vars['row']->value['precio']==0){?>por Km<?php }else{ ?><?php echo $_smarty_tpl->tpl_vars['row']->value['precio'];?>
+<?php }?></td>
 						<td style="text-align: right">
 							<button type="button" class="btn btn-success" action="modificar" title="Modificar" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
 '><i class="fa fa-pencil"></i></button>
-							<button type="button" class="btn btn-danger" action="eliminar" title="Eliminar" identificador="<?php echo $_smarty_tpl->tpl_vars['row']->value['idCategoria'];?>
+							<button type="button" class="btn btn-danger" action="eliminar" title="Eliminar" identificador="<?php echo $_smarty_tpl->tpl_vars['row']->value['idServicio'];?>
 "><i class="fa fa-times"></i></button>
 						</td>
 					</tr>

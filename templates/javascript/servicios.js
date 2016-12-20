@@ -16,15 +16,24 @@ $(document).ready(function(){
 	$("#frmAdd").validate({
 		debug: true,
 		rules: {
-			txtNombre: "required"
+			txtNombre: "required",
+			txtPrecio: {
+				min: 0,
+				number: true,
+				required: true
+			},
+			selCategoria: "required"
 		},
 		wrapper: 'span', 
 		submitHandler: function(form){
-			var obj = new TCategoriaServicio;
-			obj.add(
-				$("#id").val(), 
-				$("#txtNombre").val(),
-				$("#txtDescripcion").val(),
+			var obj = new TServicio;
+			obj.add({
+					id: $("#id").val(), 
+					categoria: $("#selCategoria").val(), 
+					nombre: $("#txtNombre").val(),
+					descripcion: $("#txtDescripcion").val(),
+					precio: $("#txtPrecio").val()
+				},
 				{
 					after: function(datos){
 						if (datos.band){
@@ -42,12 +51,12 @@ $(document).ready(function(){
     });
 		
 	function getLista(){
-		$.get("listaCategoriaServicios", function( data ) {
+		$.get("listaServicios", function( data ) {
 			$("#dvLista").html(data);
 			
 			$("[action=eliminar]").click(function(){
 				if(confirm("¿Seguro?")){
-					var obj = new TCategoriaServicio;
+					var obj = new TServicio;
 					obj.del($(this).attr("identificador"), {
 						after: function(data){
 							if(!data.band)
@@ -62,9 +71,11 @@ $(document).ready(function(){
 			$("[action=modificar]").click(function(){
 				var el = jQuery.parseJSON($(this).attr("datos"));
 				
-				$("#id").val(el.idCategoria);
+				$("#id").val(el.idServicio);
+				$("#selCategoria").val(el.idCategoria);
 				$("#txtNombre").val(el.nombre);
 				$("#txtDescripcion").val(el.descripcion);
+				$("#txtPrecio").val(el.precio);
 				
 				$('#panelTabs a[href="#add"]').tab('show');
 			});

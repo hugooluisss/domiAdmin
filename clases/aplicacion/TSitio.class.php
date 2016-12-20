@@ -1,19 +1,18 @@
 <?php
 /**
-* TCliente
-* Clientes
+* TSitio
+* Sitios de entrega del cliente
 * @package aplicacion
 * @autor Hugo Santiago hugooluisss@gmail.com
 **/
 
-class TCliente{
+class TSitio{
+	private $idSitio;
 	private $idCliente;
-	private $nombre;
-	private $sexo;
-	private $nacimiento;
-	private $correo;
-	private $celular;
-	
+	private $titulo;
+	private $direccion;
+	private $lng;
+	private $lat;
 	
 	/**
 	* Constructor de la clase
@@ -22,7 +21,7 @@ class TCliente{
 	* @access public
 	* @param int $id identificador del objeto
 	*/
-	public function TCliente($id = ''){
+	public function TSitio($id = ''){
 		$this->setId($id);		
 		return true;
 	}
@@ -40,7 +39,7 @@ class TCliente{
 		if ($id == '') return false;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from cliente where idCliente = ".$id);
+		$rs = $db->Execute("select * from sitio where idSitio = ".$id);
 		
 		foreach($rs->fields as $field => $val)
 			$this->$field = $val;
@@ -57,11 +56,23 @@ class TCliente{
 	*/
 	
 	public function getId(){
+		return $this->idSitio;
+	}
+	
+	/**
+	* Retorna el identificador del cliente al cual pertenece
+	*
+	* @autor Hugo
+	* @access public
+	* @return integer identificador
+	*/
+	
+	public function getIdCliente(){
 		return $this->idCliente;
 	}
 	
 	/**
-	* Establece el nombre
+	* Establece el titulo
 	*
 	* @autor Hugo
 	* @access public
@@ -69,8 +80,8 @@ class TCliente{
 	* @return boolean True si se realizó sin problemas
 	*/
 	
-	public function setNombre($val = ''){
-		$this->nombre = $val;
+	public function setTitulo($val = ''){
+		$this->titulo = $val;
 		return true;
 	}
 	
@@ -82,12 +93,12 @@ class TCliente{
 	* @return string Texto
 	*/
 	
-	public function getNombre(){
-		return $this->nombre;
+	public function getTitulo(){
+		return $this->titulo;
 	}
 	
 	/**
-	* Establece el email
+	* Establece la direccion
 	*
 	* @autor Hugo
 	* @access public
@@ -95,25 +106,51 @@ class TCliente{
 	* @return boolean True si se realizó sin problemas
 	*/
 	
-	public function setCorreo($val = ''){
-		$this->correo = $val;
+	public function setDireccion($val = ''){
+		$this->direccion = $val;
 		return true;
 	}
 	
 	/**
-	* Retorna el email
+	* Retorna la direccion
 	*
 	* @autor Hugo
 	* @access public
 	* @return string Texto
 	*/
 	
-	public function getCorreo(){
-		return $this->correo;
+	public function getDireccion(){
+		return $this->direccion;
 	}
 	
 	/**
-	* Establece el Sexo
+	* Establece la latitud
+	*
+	* @autor Hugo
+	* @access public
+	* @param float $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setLatitud($val = 0){
+		$this->lat = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna la latitud
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getLatitud(){
+		return $this->lat;
+	}
+	
+	/**
+	* Establece la longitud
 	*
 	* @autor Hugo
 	* @access public
@@ -121,73 +158,34 @@ class TCliente{
 	* @return boolean True si se realizó sin problemas
 	*/
 	
-	public function setSexo($val = 'H'){
-		$this->sexo = $val;
+	public function setLongitud($val = ''){
+		$this->lng = $val;
 		return true;
 	}
 	
 	/**
-	* Retorna el Sexo
+	* Retorna la longitud
 	*
 	* @autor Hugo
 	* @access public
 	* @return string Texto
 	*/
 	
-	public function getSexo(){
-		return $this->sexo;
+	public function getLongitud(){
+		return $this->lng;
 	}
 	
 	/**
-	* Establece la fecha de nacimiento
+	* Retorna las coordenadas
 	*
 	* @autor Hugo
 	* @access public
 	* @param string $val Valor a asignar
-	* @return boolean True si se realizó sin problemas
-	*/
-	
-	public function setNacimiento($val = ''){
-		$this->nacimiento = $val;
-		return true;
-	}
-	
-	/**
-	* Retorna la fecha de nacimiento
-	*
-	* @autor Hugo
-	* @access public
 	* @return string Texto
 	*/
 	
-	public function getNacimiento(){
-		return $this->nacimiento;
-	}
-	
-	/**
-	* Establece el celular
-	*
-	* @autor Hugo
-	* @access public
-	* @param string $val Valor a asignar
-	* @return boolean True si se realizó sin problemas
-	*/
-	
-	public function setCelular($val = ''){
-		$this->celular = $val;
-		return true;
-	}
-	
-	/**
-	* Retorna el celular
-	*
-	* @autor Hugo
-	* @access public
-	* @return string Texto
-	*/
-	
-	public function getCelular(){
-		return $this->celular;
+	public function getCoordenadas(){
+		return array("lng" => $this->getLongitud(), "lat" => $this->getLatitud());
 	}
 		
 	/**
@@ -198,27 +196,28 @@ class TCliente{
 	* @return boolean True si se realizó sin problemas
 	*/
 	
-	public function guardar(){
+	public function guardar($cliente = ''){
+		if ($cliente == '') return false;
+		
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO cliente(nombre) VALUES('".$this->getNombre()."');");
+			$rs = $db->Execute("INSERT INTO sitio(idCliente) VALUES('".$cliente."');");
 			if (!$rs) return false;
 				
-			$this->idCliente = $db->Insert_ID();
+			$this->idSitio = $db->Insert_ID();
 		}		
 		
 		if ($this->getId() == '')
 			return false;
 			
-		$rs = $db->Execute("UPDATE cliente
+		$rs = $db->Execute("UPDATE sitio
 			SET
-				nombre = '".$this->getNombre()."',
-				correo = '".$this->getCorreo()."',
-				celular = '".$this->getCelular()."',
-				sexo = '".$this->getSexo()."',
-				nacimiento = '".$this->getNacimiento()."'
-			WHERE idCliente = ".$this->getId());
+				titulo = '".$this->getTitulo()."',
+				direccion = '".$this->getDireccion()."',
+				lat = ".$this->getLatitud().",
+				lng = ".$this->getLongitud()."
+			WHERE idSitio = ".$this->getId());
 			
 		return $rs?true:false;
 	}
@@ -235,7 +234,7 @@ class TCliente{
 		if ($this->getId() == '') return false;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("update cliente set visible = false where idCliente = ".$this->getId());
+		$rs = $db->Execute("delete from sitio where idServicio = ".$this->getId());
 		
 		return $rs?true:false;
 	}

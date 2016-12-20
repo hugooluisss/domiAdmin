@@ -57,7 +57,6 @@ $(document).ready(function(){
 				}
 			);
         }
-
     });
 		
 	function getLista(){
@@ -90,6 +89,12 @@ $(document).ready(function(){
 				$('#panelTabs a[href="#add"]').tab('show');
 			});
 			
+			$("[action=sitios]").click(function(){
+				var el = jQuery.parseJSON($(this).attr("datos"));
+				
+				$("#winSitios").attr("cliente", el.idCliente).modal();
+			});
+			
 			$("#tblDatos").DataTable({
 				"responsive": true,
 				"language": espaniol,
@@ -101,4 +106,59 @@ $(document).ready(function(){
 			});
 		});
 	}
+	
+	$("#winSitios").on('shown.bs.modal', function (e) {
+		var win = $("#winSitios");
+		
+		$.post("listaSitios", {
+			"cliente": win.attr("cliente")
+		}, function( data ) {
+			win.find(".modal-body").html(data);
+			
+			win.find("[action=detalleSitio]").click(function(){
+				var detalle = $("#winDetalleSitio");
+				detalle.modal();
+				var el = jQuery.parseJSON($(this).attr("datos"));
+				detalle.find("#txtTitulo").val(el.titulo);
+				detalle.find("#txtDireccion").val(el.direccion);
+				//detalle.find("img").prop("src", "https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:A%7C" + el.lat + "," + el.lng + "&key=AIzaSyAI0j32qDb3KrIzHF1ejuK9XGILtsR1AL0");
+				
+				detalle.find("#mapa").prop("src", "https://www.google.com/maps/embed/v1/place?q=" + el.lat + "," + el.lng + "&key=AIzaSyAI0j32qDb3KrIzHF1ejuK9XGILtsR1AL0");
+				/*
+				$("#map").googleMap({
+					zoom: 10, // Initial zoom level (optional)
+					coords: [48.895651, 2.290569], // Map center (optional)
+					type: "ROADMAP" // Map type (optional)
+				});
+				*/
+			});
+			
+			win.find(".modal-body").find("#tblDatos").DataTable({
+				"responsive": true,
+				"language": espaniol,
+				"paging": true,
+				"lengthChange": false,
+				"ordering": true,
+				"info": true,
+				"autoWidth": false
+			});
+		});
+	});
+	
+	$("#winSitios").on('hidden.bs.modal', function (e) {
+		win.find(".modal-body").html('<div class="text-center"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>Cargando datos...</div>');
+	});
+	
+	$("#winDetalleSitio").on('shown.bs.modal', function (e) {
+		map = new google.maps.Map($("#winDetalleSitio").find('#map'), {
+			center: {lat: -34.397, lng: 150.644},
+			zoom: 8
+		});
+	});
+	
+	$("#winDetalleSitio").on('hidden.bs.modal', function (e) {
+		$("#winDetalleSitio").find("input").val("");
+		$("#winDetalleSitio").find("textarea").val("");
+		$("#winDetalleSitio").find("img").prop("src", "");
+	});
 });

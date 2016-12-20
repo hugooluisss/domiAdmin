@@ -24,9 +24,9 @@ switch($objModulo->getId()){
 					else{
 						$obj = new TUsuario($rs->fields['idUsuario']);
 						if ($obj->getId() == '')
-							$result = array('band' => false, 'mensaje' => 'Acceso denegado');
+							$smarty->assign("json", array('band' => false, 'mensaje' => 'Acceso denegado'));
 						else
-							$result = array('band' => true);
+							$smarty->assign("json", array('band' => true));
 					}
 						
 					
@@ -48,9 +48,9 @@ switch($objModulo->getId()){
 					else{
 						$obj = new TCliente($rs->fields['idCliente']);
 						if ($obj->getId() == '')
-							$result = array('band' => false, 'mensaje' => 'Acceso denegado');
+							$smarty->assign("json", array('band' => false, 'mensaje' => 'Acceso denegado'));
 						else
-							$result = array('band' => true);
+							$smarty->assign("json", array('band' => true));
 					}
 					
 					if($result['band']){
