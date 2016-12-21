@@ -15,7 +15,7 @@ switch($objModulo->getId()){
 	break;
 	case 'listaServicios':
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from servicio where visible = true");
+		$rs = $db->Execute("select a.*, b.nombre as categoria from servicio a join catservicio b using(idCategoria) where a.visible = true");
 		$datos = array();
 		while(!$rs->EOF){
 			$rs->fields['json'] = json_encode($rs->fields);

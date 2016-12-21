@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-20 09:30:50
+<?php /* Smarty version Smarty-3.1.11, created on 2016-12-20 21:40:08
          compiled from "templates/plantillas/modulos/servicios/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1001152375585949183e21c7-40896942%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '53005aee9d52f9d01a58df1a6638b45112a1ffed' => 
     array (
       0 => 'templates/plantillas/modulos/servicios/lista.tpl',
-      1 => 1482247848,
+      1 => 1482291605,
       2 => 'file',
     ),
   ),
@@ -31,6 +31,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 				<tr>
 					<th>#</th>
 					<th>Nombre</th>
+					<th>Categoría</th>
 					<th>Precio</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -45,6 +46,8 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['idServicio'];?>
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
+</td>
+						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['categoria'];?>
 </td>
 						<td class="text-right"><?php if ($_smarty_tpl->tpl_vars['row']->value['precio']==0){?>por Km<?php }else{ ?><?php echo $_smarty_tpl->tpl_vars['row']->value['precio'];?>
 <?php }?></td>

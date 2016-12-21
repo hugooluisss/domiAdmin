@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-20 13:21:23
+<?php /* Smarty version Smarty-3.1.11, created on 2016-12-20 23:03:01
          compiled from "templates/plantillas/layout/default.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:838265096580e6795884fe7-80809833%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '88f47345f87357691db158f81dd14f424f0cd759' => 
     array (
       0 => 'templates/plantillas/layout/default.tpl',
-      1 => 1482261681,
+      1 => 1482296579,
       2 => 'file',
     ),
   ),
@@ -159,7 +159,7 @@ img/logoUser.png" alt="User Image"/>
 					</li>
 					<?php }?>
 					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==1){?>
-					<li class="<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['modulo'],array('clientes','categoriaservicios','servicios'))){?>active<?php }?> treeview">
+					<li class="<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['modulo'],array('clientes','categoriaservicios','servicios','kilometros'))){?>active<?php }?> treeview">
 						<a href="#">
 							<span>Catálogos</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
@@ -167,6 +167,17 @@ img/logoUser.png" alt="User Image"/>
 							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='clientes'){?>class="active"<?php }?>><a href="clientes"><i class="fa fa-users"></i> Clientes</a></li>
 							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='categoriaservicios'){?>class="active"<?php }?>><a href="categoriaservicios"><i class="fa fa-list"></i> Categoría de servicios</a></li>
 							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='servicios'){?>class="active"<?php }?>><a href="servicios"><i class="fa fa-motorcycle" aria-hidden="true"></i> Servicios</a></li>
+							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='kilometros'){?>class="active"<?php }?>><a href="kilometros"><i class="fa fa-exchange" aria-hidden="true"></i> Precio km</a></li>
+						</ul>
+					</li>
+					<?php }?>
+					<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,2))){?>
+					<li class="<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['modulo'],array('ordenes'))){?>active<?php }?> treeview">
+						<a href="#">
+							<span>Ordenes de servicio</span> <i class="fa fa-angle-left pull-right"></i>
+						</a>
+						<ul class="treeview-menu">
+							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='ordenes'){?>class="active"<?php }?>><a href="ordenes"><i class="fa fa-file-text-o"></i> Lista</a></li>
 						</ul>
 					</li>
 					<?php }?>

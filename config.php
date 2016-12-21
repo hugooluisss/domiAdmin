@@ -155,4 +155,24 @@ $conf['cservicios'] = array(
 	'controlador' => 'servicios.php',
 	'descripcion' => 'Controlador de servicios',
 	'capa' => LAYOUT_JSON);
+
+/*Preciokilometro*/
+$conf['kilometros'] = array(
+	'controlador' => 'preciokilometros.php',
+	'vista' => 'preciokilometros/panel.tpl',
+	'descripcion' => 'Administración de los precios por kilómetro',
+	'js' => array('precio.class.js'),
+	'jsTemplate' => array('preciokilometros.js'),
+	'capa' => LAYOUT_DEFECTO);
+	
+$conf['listaKilometros'] = array(
+	'controlador' => 'preciokilometros.php',
+	'vista' => 'preciokilometros/lista.tpl',
+	'descripcion' => 'Lista de precios por kilómetro',
+	'capa' => LAYOUT_AJAX);
+
+$conf['ckilometros'] = array(
+	'controlador' => 'preciokilometros.php',
+	'descripcion' => 'Controlador de precios por kilómetro',
+	'capa' => LAYOUT_JSON);
 ?>

@@ -24,9 +24,9 @@ switch($objModulo->getId()){
 					else{
 						$obj = new TUsuario($rs->fields['idUsuario']);
 						if ($obj->getId() == '')
-							$smarty->assign("json", array('band' => false, 'mensaje' => 'Acceso denegado'));
+							$result = array('band' => false, 'mensaje' => 'Acceso denegado');
 						else
-							$smarty->assign("json", array('band' => true));
+							$result = array('band' => true);
 					}
 						
 					
@@ -48,9 +48,9 @@ switch($objModulo->getId()){
 					else{
 						$obj = new TCliente($rs->fields['idCliente']);
 						if ($obj->getId() == '')
-							$smarty->assign("json", array('band' => false, 'mensaje' => 'Acceso denegado'));
+							$result = array('band' => false, 'mensaje' => 'Acceso denegado');
 						else
-							$smarty->assign("json", array('band' => true));
+							$result = array('band' => true);
 					}
 					
 					if($result['band']){
@@ -62,7 +62,8 @@ switch($objModulo->getId()){
 				}
 				
 				$result['datos'] = $sesion;
-				echo json_encode($result);
+				$smarty->assign("json", $result);
+				#echo json_encode($result);
 			break;
 			case 'logout':
 				$_SESSION[SISTEMA] = array();

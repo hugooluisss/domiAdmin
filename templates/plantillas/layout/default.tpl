@@ -110,7 +110,7 @@
 					</li>
 					{/if}
 					{if $PAGE.usuario->getIdTipo() eq 1}
-					<li class="{if in_array($PAGE.modulo, array('clientes', 'categoriaservicios', 'servicios'))}active{/if} treeview">
+					<li class="{if in_array($PAGE.modulo, array('clientes', 'categoriaservicios', 'servicios', 'kilometros'))}active{/if} treeview">
 						<a href="#">
 							<span>Catálogos</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
@@ -118,6 +118,17 @@
 							<li {if $PAGE.modulo eq 'clientes'}class="active"{/if}><a href="clientes"><i class="fa fa-users"></i> Clientes</a></li>
 							<li {if $PAGE.modulo eq 'categoriaservicios'}class="active"{/if}><a href="categoriaservicios"><i class="fa fa-list"></i> Categoría de servicios</a></li>
 							<li {if $PAGE.modulo eq 'servicios'}class="active"{/if}><a href="servicios"><i class="fa fa-motorcycle" aria-hidden="true"></i> Servicios</a></li>
+							<li {if $PAGE.modulo eq 'kilometros'}class="active"{/if}><a href="kilometros"><i class="fa fa-exchange" aria-hidden="true"></i> Precio km</a></li>
+						</ul>
+					</li>
+					{/if}
+					{if in_array($PAGE.usuario->getIdTipo(), array(1, 2))}
+					<li class="{if in_array($PAGE.modulo, array('ordenes'))}active{/if} treeview">
+						<a href="#">
+							<span>Ordenes de servicio</span> <i class="fa fa-angle-left pull-right"></i>
+						</a>
+						<ul class="treeview-menu">
+							<li {if $PAGE.modulo eq 'ordenes'}class="active"{/if}><a href="ordenes"><i class="fa fa-file-text-o"></i> Lista</a></li>
 						</ul>
 					</li>
 					{/if}
