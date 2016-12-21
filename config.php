@@ -175,4 +175,10 @@ $conf['ckilometros'] = array(
 	'controlador' => 'preciokilometros.php',
 	'descripcion' => 'Controlador de precios por kilómetro',
 	'capa' => LAYOUT_JSON);
+
+/*Ordenes de servicio*/
+$conf['cordenes'] = array(
+	'controlador' => 'ordenes.php',
+	'descripcion' => 'Controlador de ordenes',
+	'capa' => LAYOUT_JSON);
 ?>
