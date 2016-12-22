@@ -177,8 +177,28 @@ $conf['ckilometros'] = array(
 	'capa' => LAYOUT_JSON);
 
 /*Ordenes de servicio*/
+$conf['ordenes'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/panel.tpl',
+	'descripcion' => 'Administración de ordenes',
+	'js' => array('orden.class.js'),
+	'jsTemplate' => array('ordenes.js'),
+	'capa' => LAYOUT_DEFECTO);
+	
+$conf['listaOrdenes'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/lista.tpl',
+	'descripcion' => 'Lista de ordenes',
+	'capa' => LAYOUT_AJAX);
+	
 $conf['cordenes'] = array(
 	'controlador' => 'ordenes.php',
 	'descripcion' => 'Controlador de ordenes',
 	'capa' => LAYOUT_JSON);
+	
+$conf['listaHistorial'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/listaHistorial.tpl',
+	'descripcion' => 'Lista del historial de ordenes',
+	'capa' => LAYOUT_AJAX);
 ?>

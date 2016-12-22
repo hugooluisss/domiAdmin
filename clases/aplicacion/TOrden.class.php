@@ -16,6 +16,7 @@ class TOrden{
 	private $lat;
 	private $lng;
 	private $notas;
+	private $monto;
 	
 	/**
 	* Constructor de la clase
@@ -101,7 +102,10 @@ class TOrden{
 	* @return string Texto
 	*/
 	
-	public function getAtiende(){
+	public function getAtiende($band = false){
+		if ($band)
+			return $this->atiende == ''?"null":$this->atiende;
+			
 		return $this->atiende;
 	}
 	
@@ -208,6 +212,32 @@ class TOrden{
 	public function getNotas(){
 		return $this->notas;
 	}
+	
+	/**
+	* Establece el monto
+	*
+	* @autor Hugo
+	* @access public
+	* @param integer $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setMonto($val = 0){
+		$this->monto = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el monto
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getMonto(){
+		return $this->monto == ''?0:$this->monto;
+	}
 		
 	/**
 	* Guarda los datos en la base de datos, si no existe un identificador entonces crea el objeto
@@ -239,10 +269,11 @@ class TOrden{
 			SET
 				idEstado = ".$this->estado->getId().",
 				idServicio = ".$this->servicio->getId().",
-				atiende = '".$this->getAtiende()."',
+				atiende = ".$this->getAtiende(true).",
 				lat = ".$this->getLatitud().",
 				lng = ".$this->getLongitud().",
-				notas = '".$this->getNotas()."'
+				notas = '".$this->getNotas()."',
+				monto = ".$this->getMonto()."
 			WHERE idOrden = ".$this->getId());
 			
 		return $rs?true:false;
@@ -263,7 +294,7 @@ class TOrden{
 		global $userSesion;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("insert into comentario(fecha, idOrden, idEstado, idUsuario, comentario) values(now(), ".$this->getId().", ".$this->estado->getId().", ".$userSesion->getId().", '".$comentario."')");
+		$rs = $db->Execute("insert into historial(fecha, idOrden, idEstado, idUsuario, comentario) values(now(), ".$this->getId().", ".$this->estado->getId().", ".$userSesion->getId().", '".$comentario."')");
 		
 		return $rs?true:false;
 	}

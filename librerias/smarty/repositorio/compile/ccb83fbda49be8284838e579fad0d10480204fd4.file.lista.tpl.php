@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-24 15:23:15
+<?php /* Smarty version Smarty-3.1.11, created on 2016-12-22 00:00:50
          compiled from "templates/plantillas/modulos/ordenes/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1697850505580e6797a43842-11272907%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ccb83fbda49be8284838e579fad0d10480204fd4' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/lista.tpl',
-      1 => 1477340524,
+      1 => 1482386447,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   array (
     'lista' => 0,
     'row' => 0,
-    'PAGE' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -30,11 +29,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<table id="tblDatos" class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th>Código</th>
-					<th>Descripción</th>
-					<th>Observaciones</th>
-					<th>Sucursal</th>
 					<th>Fecha</th>
+					<th>Cliente</th>
 					<th>Estado</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -46,42 +42,18 @@ foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars[
 $_smarty_tpl->tpl_vars["row"]->_loop = true;
 ?>
 					<tr>
-						<td style="border-left: 3px solid <?php echo $_smarty_tpl->tpl_vars['row']->value['colorEstado'];?>
-"><?php echo $_smarty_tpl->tpl_vars['row']->value['codigo'];?>
+						<td style="border-left: 5px solid <?php echo $_smarty_tpl->tpl_vars['row']->value['color'];?>
+"><?php echo $_smarty_tpl->tpl_vars['row']->value['fecha'];?>
 </td>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['descripcion'];?>
+						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['nombreCliente'];?>
 </td>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['observaciones'];?>
+						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['nombreEstado'];?>
 </td>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['sucursal'];?>
-</td>
-						<td <?php if ($_smarty_tpl->tpl_vars['row']->value['actual']==1){?>class="text-danger"<?php }?>><?php echo $_smarty_tpl->tpl_vars['row']->value['registro'];?>
-</td>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['estado'];?>
-</td>
-						<td class="text-right">
-							<?php if ($_smarty_tpl->tpl_vars['row']->value['archivo']!=''&&$_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==3){?>
-								<a href="<?php echo $_smarty_tpl->tpl_vars['row']->value['archivo'];?>
-" download class="btn btn-primary" action="setEstado" estado="2" title="Descargar archivo" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
-'><i class="fa fa-download"></i></a>
-							<?php }?>
-						
-							<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==6&&$_smarty_tpl->tpl_vars['row']->value['idEstado']!=9){?>
-								<button type="button" class="btn btn-warning" action="setEstado" estado="9" title="Pasar a En tránsito" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
-'><i class="fa fa-arrow-circle-o-right"></i></button>
-							<?php }?>
-							<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==5){?>
-								<button type="button" class="btn btn-warning" title="Historial de estados" action="historialEstados" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
-'><i class="fa fa-certificate"></i></button>
-							<?php }?>
-							<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==4&&in_array($_smarty_tpl->tpl_vars['row']->value['idEstado'],array(10,11,9))!=true){?>
-								<button type="button" class="btn btn-warning" action="setEstado" estado="10" title="Pasar a En Rack" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
-'><i class="fa fa-list-alt"></i></button>
-								<button type="button" class="btn btn-warning" action="setEstado" estado="11" title="Pasar a Perdido" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
-'><i class="fa fa-lastfm"></i></button>
-							<?php }?>
-							<button type="button" class="btn btn-success" action="detalle" title="Detalle" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
-'><i class="fa fa-search"></i></button>
+						<td style="text-align: right">
+							<button type="button" class="btn btn-default" action="historial" title="Historial del servicio" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
+'>H</button>
+							<button type="button" class="btn btn-success" action="detalle" title="Detalle de la orden" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
+'><i class="fa fa-info"></i></button>
 						</td>
 					</tr>
 				<?php } ?>
