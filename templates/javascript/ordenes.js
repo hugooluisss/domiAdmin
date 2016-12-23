@@ -1,3 +1,4 @@
+var keyMaps = "AIzaSyAI0j32qDb3KrIzHF1ejuK9XGILtsR1AL0";
 $(document).ready(function(){
 	getLista();
 	
@@ -50,7 +51,10 @@ $(document).ready(function(){
 				$("#winDetalle").find("#selAtiende").val(el.atiende);
 				$("#winDetalle").find("#selEstado").val(el.idEstado);
 				
-				$("#winDetalle").find("#mapa").prop("src", "https://www.google.com/maps/embed/v1/place?q=" + el.lat + "," + el.lng + "&key=AIzaSyAI0j32qDb3KrIzHF1ejuK9XGILtsR1AL0");
+				if (el.lat2 == null && el.lng2 == null)
+					$("#winDetalle").find("#mapa").prop("src", "https://www.google.com/maps/embed/v1/place?q=" + el.lat + "," + el.lng + "&key=" + keyMaps);
+				else	
+					$("#winDetalle").find("#mapa").prop("src", "https://www.google.com/maps/embed/v1/directions?key=" + keyMaps + "&origin=" + el.lat + "," + el.lng + "&destination=" + el.lat2 + "," + el.lng2);
 				
 				$("#orden").val(el.idOrden);
 				
@@ -75,7 +79,8 @@ $(document).ready(function(){
 				"lengthChange": false,
 				"ordering": true,
 				"info": true,
-				"autoWidth": false
+				"autoWidth": false,
+				"order": [[ 0, "desc" ]]
 			});
 		});
 	}

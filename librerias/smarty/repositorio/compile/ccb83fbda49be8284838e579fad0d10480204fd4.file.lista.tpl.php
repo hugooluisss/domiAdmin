@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-22 00:00:50
+<?php /* Smarty version Smarty-3.1.11, created on 2016-12-22 21:37:55
          compiled from "templates/plantillas/modulos/ordenes/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1697850505580e6797a43842-11272907%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ccb83fbda49be8284838e579fad0d10480204fd4' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/lista.tpl',
-      1 => 1482386447,
+      1 => 1482464272,
       2 => 'file',
     ),
   ),
@@ -47,7 +47,8 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['nombreCliente'];?>
 </td>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['nombreEstado'];?>
+						<td style="color: <?php echo $_smarty_tpl->tpl_vars['row']->value['color'];?>
+"><?php echo $_smarty_tpl->tpl_vars['row']->value['nombreEstado'];?>
 </td>
 						<td style="text-align: right">
 							<button type="button" class="btn btn-default" action="historial" title="Historial del servicio" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>

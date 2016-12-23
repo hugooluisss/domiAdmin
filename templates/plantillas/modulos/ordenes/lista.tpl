@@ -14,7 +14,7 @@
 					<tr>
 						<td style="border-left: 5px solid {$row.color}">{$row.fecha}</td>
 						<td>{$row.nombreCliente}</td>
-						<td>{$row.nombreEstado}</td>
+						<td style="color: {$row.color}">{$row.nombreEstado}</td>
 						<td style="text-align: right">
 							<button type="button" class="btn btn-default" action="historial" title="Historial del servicio" datos='{$row.json}'>H</button>
 							<button type="button" class="btn btn-success" action="detalle" title="Detalle de la orden" datos='{$row.json}'><i class="fa fa-info"></i></button>

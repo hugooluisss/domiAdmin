@@ -127,7 +127,7 @@ class TPrecio{
 			$rs = $db->Execute("INSERT INTO preciokilometro(limite) VALUES('".$this->getId()."');");
 			if (!$rs) return false;
 				
-			$this->limite = $db->Insert_ID();
+			#$this->limite = $db->Insert_ID();
 		}		
 		
 		if ($this->getId() == '')

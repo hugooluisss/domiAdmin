@@ -28,7 +28,7 @@ class TModulo{
 		if (count($conf[$id]) == 0) return false;
 		$this->idModulo = $id;
 		$this->categoria = $conf[$id]["categoria"] == ''?"Sin especificar":$conf[$id]["categoria"];
-		$this->seguridad = $conf[$id]["seguridad"];
+		$this->seguridad = !isset($conf[$id]["seguridad"])?true:false;
 		$this->perfiles = $conf[$id]["perfiles"];
 		$this->scriptsJS = array();
 		

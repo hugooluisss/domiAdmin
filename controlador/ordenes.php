@@ -52,6 +52,7 @@ switch($objModulo->getId()){
 			case 'add':
 				$db = TBase::conectaDB();
 				$obj = new TOrden();
+				global $ini;
 				
 				$obj->setId($_POST['id']);
 				$idEstado = $obj->estado->getId();
@@ -61,18 +62,32 @@ switch($objModulo->getId()){
 				$obj->setAtiende($_POST['atiende']);
 				$obj->setLatitud($_POST['latitud']);
 				$obj->setLongitud($_POST['longitud']);
+				$obj->setLatitud2($_POST['latitud2']);
+				$obj->setLongitud2($_POST['longitud2']);
 				$obj->setNotas($_POST['notas']);
 				
 				#calculo del monto
-				if ($obj->servicio->getPrecio() == 0){ #es decir, requiere calculo por kilometraje
-					$km = harvestine($_POST['latitud'], $_POST['longitud'], 17.09187214812757, -96.70211629417575);
-					$rs = $db->Execute("select * from preciokilometro where limite < ".$km." order by limite");
+				if ($obj->servicio->getPrecio == 0 and $_POST['latitud2'] == '' and $_POST['longitud2'] == '')
+					$smarty->assign("json", array("band" => $obj->guardar(), "mensaje" => "Se necesita el segundo punto"));
+				else{
+					if ($obj->servicio->getPrecio() == 0){# se necesitan los dos puntos para calulcar la distancia
+						$km = harvestine($_POST['latitud'], $_POST['longitud'], $ini['sistema']['lat'], $ini['sistema']['lng']);
+						$km += harvestine($_POST['latitud'], $_POST['longitud'], $_POST['latitud2'], $_POST['longitud2']);
+						
+						$rs = $db->Execute("select * from preciokilometro where limite < ".$km." order by limite");
+						
+						$obj->setMonto($rs->fields["precio"] * $km);
+						$aux = 1;
+					}else{
+						$km = harvestine($_POST['latitud'], $_POST['longitud'], $ini['sistema']['lat'], $ini['sistema']['lng']);
+						$rs = $db->Execute("select * from preciokilometro where limite < ".$km." order by limite");
+						
+						$obj->setMonto($obj->servicio->getPrecio() + $rs->fields["precio"] * $km);
+						$aux = 2;
+					}
 					
-					$obj->setMonto($rs->fields["precio"] * $km);
-				}else
-					$obj->setMonto($obj->servicio->getPrecio());
-				
-				$smarty->assign("json", array("band" => $obj->guardar(), "distancia" => harvestine($_POST['latitud'], $_POST['longitud'], 17.09187214812757, -96.70211629417575)));
+					$smarty->assign("json", array("band" => $obj->guardar(), "distancia" => $km, "aux" => $aux));
+				}
 			break;
 			case 'changeEstado':
 				$obj = new TOrden();

@@ -15,6 +15,8 @@ class TOrden{
 	private $fecha;
 	private $lat;
 	private $lng;
+	private $lat2;
+	private $lng2;
 	private $notas;
 	private $monto;
 	
@@ -188,6 +190,58 @@ class TOrden{
 	}
 	
 	/**
+	* Establece la latitud 2
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setLatitud2($val = ''){
+		$this->lat2 = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna la latitud2
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getLatitud2(){
+		return $this->lat2;
+	}
+	
+	/**
+	* Establece la longitud
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setLongitud2($val = ''){
+		$this->lng2 = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna la longitud
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getLongitud2(){
+		return $this->lng2;
+	}
+	
+	/**
 	* Establece las notas
 	*
 	* @autor Hugo
@@ -272,6 +326,8 @@ class TOrden{
 				atiende = ".$this->getAtiende(true).",
 				lat = ".$this->getLatitud().",
 				lng = ".$this->getLongitud().",
+				lat2 = ".$this->getLatitud2().",
+				lng2 = ".$this->getLongitud2().",
 				notas = '".$this->getNotas()."',
 				monto = ".$this->getMonto()."
 			WHERE idOrden = ".$this->getId());
