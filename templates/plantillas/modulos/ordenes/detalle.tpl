@@ -35,7 +35,7 @@
 								<select id="selAtiende" name="selAtiende" class="form-control">
 									<option value="">Sin asignar</option>
 									{foreach from=$usuarios item="row"}
-										<option value="{$row.idEstado}">{$row.nombre}</option>
+										<option value="{$row.idUsuario}">{$row.nombre}</option>
 									{/foreach}
 								</select>
 							</div>

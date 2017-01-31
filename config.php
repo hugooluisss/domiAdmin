@@ -201,4 +201,15 @@ $conf['listaHistorial'] = array(
 	'vista' => 'ordenes/listaHistorial.tpl',
 	'descripcion' => 'Lista del historial de ordenes',
 	'capa' => LAYOUT_AJAX);
+	
+$conf['cpagos'] = array(
+	'controlador' => 'pagos.php',
+	'descripcion' => 'Controlador de pagos',
+	'capa' => LAYOUT_JSON);
+	
+$conf['listaOrdenesSinTerminar'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/listaHistorial.tpl',
+	'descripcion' => 'Lista de ordenes',
+	'capa' => LAYOUT_AJAX);
 ?>

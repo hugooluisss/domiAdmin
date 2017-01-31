@@ -65,3 +65,5 @@
 		</form>
 	</div>
 </div>
+
+{include file=$PAGE.rutaModulos|cat:"modulos/servicios/upload.tpl"}

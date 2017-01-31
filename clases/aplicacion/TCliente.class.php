@@ -13,6 +13,7 @@ class TCliente{
 	private $nacimiento;
 	private $correo;
 	private $celular;
+	private $pass;
 	
 	
 	/**
@@ -189,6 +190,32 @@ class TCliente{
 	public function getCelular(){
 		return $this->celular;
 	}
+	
+	/**
+	* Establece el pass
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setPass($val = ''){
+		$this->pass = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el pass
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getPass(){
+		return $this->pass;
+	}
 		
 	/**
 	* Guarda los datos en la base de datos, si no existe un identificador entonces crea el objeto
@@ -217,7 +244,8 @@ class TCliente{
 				correo = '".$this->getCorreo()."',
 				celular = '".$this->getCelular()."',
 				sexo = '".$this->getSexo()."',
-				nacimiento = '".$this->getNacimiento()."'
+				nacimiento = '".$this->getNacimiento()."',
+				pass = '".$this->getPass()."'
 			WHERE idCliente = ".$this->getId());
 			
 		return $rs?true:false;

@@ -82,9 +82,10 @@ $(document).ready(function(){
 				
 				$("#id").val(el.idCliente);
 				$("#txtNombre").val(el.nombre);
-				$("#txtEmail").val(el.email);
+				$("#txtEmail").val(el.correo);
 				$("#selSexo").val(el.sexo);
-				$("#txtNacimiento").val(el.nacimiento);
+				$("#txtFechaNacimiento").val(el.nacimiento);
+				$("#txtCelular").val(el.celular);
 				
 				$('#panelTabs a[href="#add"]').tab('show');
 			});

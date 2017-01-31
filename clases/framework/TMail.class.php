@@ -10,133 +10,101 @@
 **/
 
 class TMail{
-	private $phpMailer;
-	private $permitir = false;
-	
-/**
-* Metodo Constructor
-* Llama al constructor padre para hacer las conexiones
-*/
+	private $permitir = true;
+	private $destinos;
+	private $origen;
+	private $contestarA;
+	private $adjuntos;
+	private $tema;
+
 	public function TMail(){
 		global $ini;
-		$this->phpMailer = new PHPMailer();
-		$datos = $rs->fields;
-		#$this->phpMailer->CharSet("UTF8");
+		$this->destinos = array();
+		$this->contestarA = "";
+		$this->origen = array("nombre" => "GrupoDomi", "correo" => "info@grupodomi.com");
 		
-		$this->phpMailer->SMTPDebug  = 1;
-		
-		$this->empresa['nombreCorto'] = utf8_decode($ini['sistema']['nombreEmpresa']);
-		#$this->phpMailer->IsSMTP();
-		#$this->phpMailer->Port = 25;
-		#$this->phpMailer->Host = $ini['mail']['server'];
-
-		#$this->phpMailer->SMTPAuth = true;
-		#$this->phpMailer->Username = $ini['mail']['user'];
-		#$this->phpMailer->Password = $ini['mail']['pass'];
-		$this->phpMailer->IsHTML(true);
-		$this->phpMailer->FromName = utf8_decode($ini['sistema']['nombre']);
-		$this->setDirOrigen($ini['mail']['user']);
-		#$this->phpMailer->SMTPSecure = 'tls';
-		if ($ini['mail']['contestarA'] <> '')
-			$this->phpMailer->AddReplyTo($ini['mail']['contestarA']);
-			
 		$this->permitir = true;
 	}
 	
-	public function setUser($val){
-		$this->phpMailer->Username = $val;
-	}
-	
-	public function setPassword($val){
-		$this->phpMailer->Password = $val;
+	public function setPermitir($band = true){
+		$this->permitir = $band;
 	}
 
-/**
-* Establece el cuerpo del mensaje
-* @param string $msg Mensaje
-*/	
-	public function setBodyHTML($msg){
-		$this->phpMailer->MsgHTML = $msg;
-		$this->phpMailer->Body = $msg;
-		$this->phpMailer->AltBody = $msg;
-	}
-	
-	public function adjuntar($archivo){
-		return $this->phpMailer->addAttachment($archivo);
+	public function setBodyHTML($msg = "Sin mensaje"){
+		$this->msg = $msg;
 	}
 
-/**
-* Establece el tema del correo
-* @param string $tema Tema
-*/		
 	public function setTema($tema){
-		$this->phpMailer->Subject = $this->empresa['nombreCorto'].': '.$tema;
-	}
-
-/**
-* Agrega una direccion de correo (Detinatario)
-* @param string $mail Direccion
-* @param string $nombre Nombre de la persona
-*/		
-	public function setDestino($mail, $nombre = ""){
-		$this->phpMailer->AddAddress($mail, $nombre);
+		$this->tema = $tema;
 	}
 	
-/**
-* Agrega una direccion de correo para enviar de forma oculta
-* @param string $mail Direccion
-* @param string $nombre Nombre de la persona
-*/		
-	public function copiaOculta($mail, $nombre = ""){
-		$this->phpMailer->AddCC($mail, $nombre);
+	public function getTema(){
+		return $this->tema;
+	}
+	
+	public function setOrigen($nombre = '', $correo = ''){
+		$this->origen = array("nombre" => $nombre, "correo" => $mail);
 	}
 
-/**
-* Envia el correo
-* @return Boolean True si lo envio
-*/		
+	public function addDestino($mail = "", $nombre = ""){
+		array_push($this->destinos, array("nombre" => $nombre, "correo" => $mail));
+		return true;
+	}
+	
+	public function setContestarA($contestar = ''){
+		$this->contestarA = $contestar;
+		
+	}
+	
 	public function send(){
 		if (!$this->permitir)
 			return true;
 		else{
-			if ($this->phpMailer->Send())
-				return true;
-			else{
-				ErrorSistema($this->phpMailer->ErrorInfo);			
-				return false;
+			$salto = "\r";
+			$random_hash = md5(date('r', time()));
+			
+			$headers = "MIME-Version: 1.0;\r\n";
+			$headers .= "From: ".$this->origen['nombre']."<".$this->origen['correo'].">;\r\n";
+			$headers .= "Reply-To: <".($this->contestarA == ''?$this->origen['correo']:$this->contestarA).">;\r\n";
+			$headers .= "Content-Type: multipart/mixed; boundary=\"PHP-mixed-".$random_hash."\"";
+			
+			
+			#Esta es la parte del mensaje
+			$msg = "--PHP-mixed-".$random_hash.$salto;
+			$msg .= 'Content-Type: multipart/alternative; boundary="PHP-alt-'.$random_hash.'"'.$salto; 
+			$msg .= '--PHP-alt-'.$random_hash.$salto;
+			$msg .= 'Content-Type: text/html; charset="iso-8859-1"'.$salto;
+			$msg .= 'Content-Transfer-Encoding: 7bit'.$salto.$salto;
+			$msg .= $this->msg;
+			$msg .= '--PHP-alt-'.$random_hash.'--'.$salto;
+			#este es el fin del mensaje
+			
+			#por cada adjunto
+			foreach($this->adjuntos as $adjunto){
+				$msg .= '--PHP-mixed-'.$random_hash.$salto;
+		
+				$msg .= 'Content-Type: application/x-pdf; name="'.$adjunto['nombre'].'"'.$salto;
+				$msg .= 'Content-Transfer-Encoding: base64'.$salto;
+				$msg .= 'Content-Disposition: attachment'.$salto;
+		
+				$msg .= chunk_split(base64_encode(file_get_contents($adjunto['ruta'])));
+				$msg .= '--PHP-mixed-'.$random_hash.'--'.$salto;
 			}
+			
+			$emailBand = true;
+			foreach($this->destinos as $destino)
+				if ($emailBand)
+					$emailBand = imap_mail($destino["correo"], $this->getTema(), $msg, $headers);
+				
+			return $emailBand;
 		}
 	}
-
-/**
-* Remplaza las etiquetas declaradas en el texto por etiquetas validas de los datos
-* @param string $texto Cuerpo del texto/mensaje
-* @param Object $datos Datos a cambiar
-*/		
+		
 	public function construyeMail($texto, $datos){
 		foreach($datos as $indice => $valor)
 			$texto = str_replace('[*'.$indice.'*]', $datos[$indice], $texto);
 			
 		return $texto;
-	}
-
-/**
-* Indica si se permite el envio de mails
-*/
-	
-	public function allowed(){
-		return $this->permitir;
-	}
-	
-/**
-* Establece la dirección de origen
-* @param String $dir Direccion de origen
-* @return boolean true Siempre
-*/
-	public function setDirOrigen($dir){
-		$this->phpMailer->From = $dir;
-		
-		return true;
 	}
 }
 ?>

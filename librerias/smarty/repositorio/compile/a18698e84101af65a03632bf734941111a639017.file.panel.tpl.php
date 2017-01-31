@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-20 21:37:47
+<?php /* Smarty version Smarty-3.1.11, created on 2017-01-30 08:50:47
          compiled from "templates/plantillas/modulos/servicios/panel.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:2086885683585948df3dce45-88577776%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'a18698e84101af65a03632bf734941111a639017' => 
     array (
       0 => 'templates/plantillas/modulos/servicios/panel.tpl',
-      1 => 1482264380,
+      1 => 1485787627,
       2 => 'file',
     ),
   ),
@@ -21,6 +21,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   array (
     'categorias' => 0,
     'row' => 0,
+    'PAGE' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -96,4 +97,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 			</div>
 		</form>
 	</div>
-</div><?php }} ?>
+</div>
+
+<?php echo $_smarty_tpl->getSubTemplate (($_smarty_tpl->tpl_vars['PAGE']->value['rutaModulos']).("modulos/servicios/upload.tpl"), $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
+<?php }} ?>

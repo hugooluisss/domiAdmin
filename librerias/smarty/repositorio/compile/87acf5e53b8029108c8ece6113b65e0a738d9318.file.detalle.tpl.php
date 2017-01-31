@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-21 22:43:05
+<?php /* Smarty version Smarty-3.1.11, created on 2017-01-30 12:42:05
          compiled from "templates/plantillas/modulos/ordenes/detalle.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:827635306585b54ab00e554-53808724%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '87acf5e53b8029108c8ece6113b65e0a738d9318' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/detalle.tpl',
-      1 => 1482381713,
+      1 => 1485801718,
       2 => 'file',
     ),
   ),
@@ -72,7 +72,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars["row"]->value){
 $_smarty_tpl->tpl_vars["row"]->_loop = true;
 ?>
-										<option value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idEstado'];?>
+										<option value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idUsuario'];?>
 "><?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
 </option>
 									<?php } ?>

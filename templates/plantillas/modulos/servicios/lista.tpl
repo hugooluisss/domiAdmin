@@ -18,6 +18,7 @@
 						<td>{$row.categoria}</td>
 						<td class="text-right">{if $row.precio eq 0}por Km{else}{$row.precio}{/if}</td>
 						<td style="text-align: right">
+							<button type="button" class="btn btn-default" action="upload" title="Subir archivo" datos='{$row.json}'><i class="fa fa-upload"></i></button>
 							<button type="button" class="btn btn-success" action="modificar" title="Modificar" datos='{$row.json}'><i class="fa fa-pencil"></i></button>
 							<button type="button" class="btn btn-danger" action="eliminar" title="Eliminar" identificador="{$row.idServicio}"><i class="fa fa-times"></i></button>
 						</td>

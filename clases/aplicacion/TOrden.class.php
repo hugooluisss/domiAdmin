@@ -326,8 +326,8 @@ class TOrden{
 				atiende = ".$this->getAtiende(true).",
 				lat = ".$this->getLatitud().",
 				lng = ".$this->getLongitud().",
-				lat2 = ".$this->getLatitud2().",
-				lng2 = ".$this->getLongitud2().",
+				lat2 = ".($this->getLatitud2() == ''?"null":$this->getLatitud2()).",
+				lng2 = ".($this->getLongitud2() == ''?"null":$this->getLongitud2()).",
 				notas = '".$this->getNotas()."',
 				monto = ".$this->getMonto()."
 			WHERE idOrden = ".$this->getId());

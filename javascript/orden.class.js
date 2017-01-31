@@ -25,7 +25,7 @@ TOrden = function(){
 		$.post('cordenes', {
 				"id": orden,
 				"usuario": usuario,
-				"action": "changeEstado"
+				"action": "setAtiende"
 			}, function(data){
 				if (data.band == 'false')
 					console.log(data.mensaje);

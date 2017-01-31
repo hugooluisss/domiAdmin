@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-20 21:29:47
+<?php /* Smarty version Smarty-3.1.11, created on 2017-01-30 08:42:39
          compiled from "templates/plantillas/modulos/clientes/sitios/winDetalle.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:166371473758596948f32e13-02469617%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ff01c9c95c1a6961577390d2642c77312dd6d0a4' => 
     array (
       0 => 'templates/plantillas/modulos/clientes/sitios/winDetalle.tpl',
-      1 => 1482290986,
+      1 => 1482381858,
       2 => 'file',
     ),
   ),
@@ -28,7 +28,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h1>Detalle</h1>
+				<h3>Detalle</h3>
 			</div>
 			<div class="modal-body">
 				<div class="input-group col-xs-12">

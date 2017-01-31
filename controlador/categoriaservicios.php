@@ -15,6 +15,7 @@ switch($objModulo->getId()){
 			$rs->moveNext();
 		}
 		$smarty->assign("lista", $datos);
+		$smarty->assign("json", $datos);
 	break;
 	case 'ccategoriaservicios':
 		switch($objModulo->getAction()){

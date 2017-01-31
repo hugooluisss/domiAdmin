@@ -47,6 +47,19 @@ switch($objModulo->getId()){
 		$smarty->assign("lista", $datos);
 		$smarty->assign("json", $datos);
 	break;
+	case 'listaOrdenesSinTerminar':
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select a.*, b.nombre as nombreCliente, c.nombre as nombreEstado, c.color, d.nombre as nombreServicio, e.nombre as nombreAtiende from orden a join cliente b using(idCliente) join estado c using(idEstado) join servicio d using(idServicio) left join usuario e on a.atiende = e.idUsuario where not idEstado in (4) and idCliente = ".$_POST['cliente']." order by fecha desc");
+		$datos = array();
+		while(!$rs->EOF){
+			$rs->fields['json'] = json_encode($rs->fields);
+			
+			array_push($datos, $rs->fields);
+			$rs->moveNext();
+		}
+		$smarty->assign("lista", $datos);
+		$smarty->assign("json", $datos);
+	break;
 	case 'cordenes':
 		switch($objModulo->getAction()){
 			case 'add':
@@ -67,7 +80,7 @@ switch($objModulo->getId()){
 				$obj->setNotas($_POST['notas']);
 				
 				#calculo del monto
-				if ($obj->servicio->getPrecio == 0 and $_POST['latitud2'] == '' and $_POST['longitud2'] == '')
+				if ($obj->servicio->getPrecio() == 0 and $_POST['latitud2'] == '' and $_POST['longitud2'] == '')
 					$smarty->assign("json", array("band" => $obj->guardar(), "mensaje" => "Se necesita el segundo punto"));
 				else{
 					if ($obj->servicio->getPrecio() == 0){# se necesitan los dos puntos para calulcar la distancia
@@ -108,6 +121,28 @@ switch($objModulo->getId()){
 				$obj->setAtiende($_POST['usuario']);
 				
 				$smarty->assign("json", array("band" => $obj->guardar()));
+			break;
+			case 'getDistancia':
+				$servicio = new TServicio($_POST['servicio']);
+				$db = TBase::conectaDB();
+				
+				if ($servicio->getPrecio() > 0){ #solo un punto
+					$km = harvestine($_POST['latitud'], $_POST['longitud'], $ini['sistema']['lat'], $ini['sistema']['lng']);
+					$rs = $db->Execute("select * from preciokilometro where limite < ".$km." order by limite");
+					
+					$monto = $servicio->getPrecio() + $rs->fields["precio"] * $km;
+					
+					$aux = 2;
+				}else{ #son dos puntos
+					$km = harvestine($_POST['latitud'], $_POST['longitud'], $ini['sistema']['lat'], $ini['sistema']['lng']);
+					$km += harvestine($_POST['latitud'], $_POST['longitud'], $_POST['latitud2'], $_POST['longitud2']);
+					
+					$rs = $db->Execute("select * from preciokilometro where limite < ".$km." order by limite");
+					
+					$monto = $rs->fields["precio"] * $km;
+				}
+				
+				$smarty->assign("json", array("distancia" => $km, "monto" => $monto));
 			break;
 		}
 	break;
